@@ -1,0 +1,111 @@
+<div class="panel panel-<%= (defined?(@resp) && !@resp.ok?) ? 'danger' : 'success' %>">
+  <div class="panel-heading">
+    APNS
+  </div>
+  <div class="panel-body">
+    <% if defined?(@resp) %>
+      <div class="panel <%= @resp.ok? ? 'panel-success text-success' : 'panel-danger text-danger' %>">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-lg-3">request.headers</div>
+            <div class="col-lg-9"><%= @req.headers %></div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">request.body</div>
+            <div class="col-lg-9"><%= @req.body %></div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-lg-3">resp.ok?</div>
+            <div class="col-lg-9"><%= @resp.ok? %></div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">resp.status</div>
+            <div class="col-lg-9"><%= @resp.status %></div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">resp.headers</div>
+            <div class="col-lg-9"><%= @resp.headers %></div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">resp.body</div>
+            <div class="col-lg-9"><%= @resp.body %></div>
+          </div>
+        </div>
+      </div>
+    <% end -%>
+    <form class="form-horizontal" action="/apns" method="POST" enctype="multipart/form-data">
+      <fieldset>
+        <div class="form-group">
+          <label for="dataCertificate" class="col-lg-2 control-label">Certificate</label>
+          <div class="col-lg-4 top10">
+            <input type="file" name="data[certificate]" id="dataCertificate" required>
+          </div>
+          <label for="dataPassword" class="col-lg-2 control-label">Passphrase</label>
+          <div class="col-lg-4">
+            <input type="text" name="data[password]" class="form-control" id="dataPassword">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="dataToken" class="col-lg-2 control-label">Token</label>
+          <div class="col-lg-10">
+            <input type="text" name="data[token]" class="form-control" id="dataToken" placeholder="eg: 740f4707 bebcf74f 9b7c25d4 8e335894 5f6aa01d a5ddb387 462c7eaf 61bb78ad" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="dataAlert" class="col-lg-2 control-label">Alert</label>
+          <div class="col-lg-10">
+            <input type="text" name="data[alert]" class="form-control" id="dataAlert" placeholder="eg: Hello Kitti!" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="dataTopic" class="col-lg-2 control-label">Topic</label>
+          <div class="col-lg-10">
+            <input type="text" name="data[topic]" class="form-control" id="dataTopic" placeholder="eg: com.pusher.testapp">
+          </div>
+        </div>
+        <hr>
+        <div class="form-group">
+          <label for="dataCustomPayload" class="col-lg-2 control-label">Custom Payload</label>
+          <div class="col-lg-10">
+            <textarea name="data[custom_payload]" class="form-control" id="dataCustomPayload" placeholder='eg: {"user": {"age": 40, "sex": "m"}}'></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="dataBadge" class="col-lg-2 control-label">Badge</label>
+          <div class="col-lg-4">
+            <input type="number" name="data[badge]" class="form-control" id="dataBadge" min="0">
+          </div>
+          <label for="dataSound" class="col-lg-2 control-label">Sound</label>
+          <div class="col-lg-4">
+            <input type="text" name="data[sound]" class="form-control" id="dataSound" placeholder="eg: bells.wav">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="dataCategory" class="col-lg-2 control-label">Category</label>
+          <div class="col-lg-4">
+            <input type="text" name="data[category]" class="form-control" id="dataCategory" placeholder="eg: INVITE_CATEGORY">
+          </div>
+          <div class="col-lg-offset-2 col-lg-4">
+            <div class="checkbox pt0 mh0">
+              <label>
+                <input type="checkbox" name="data[content_available]" value="1"> Content Available
+              </label>
+            </div>
+            <div class="checkbox pt0 mh0">
+              <label>
+                <input type="checkbox" name="data[mutable_content]" value="1"> Mutable Content
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-10 col-lg-offset-2">
+            <button type="reset" class="btn btn-default">Cancel</button>
+            <input type="submit" class="btn btn-primary" value="Send">
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
